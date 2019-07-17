@@ -1,0 +1,38 @@
+version: '3.2'
+services:
+  user-service:
+    build: ./user-service
+    env_file:
+      - ".env"
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    depends_on:
+      - userdb
+
+  userdb:
+    image: mysql:5.7.22
+    command: "--innodb_use_native_aio=0"
+    env_file:
+      - ".env"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+
+
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=${MYSQL_HOST}
+    ports:
+      - 8080:80
+
+
