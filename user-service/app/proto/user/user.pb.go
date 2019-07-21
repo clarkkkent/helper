@@ -151,6 +151,10 @@ type Response struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
+func (m *Response) Error() string {
+	panic("implement me")
+}
+
 func (m *Response) Reset()         { *m = Response{} }
 func (m *Response) String() string { return proto.CompactTextString(m) }
 func (*Response) ProtoMessage()    {}
