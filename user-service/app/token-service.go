@@ -1,4 +1,4 @@
-package app
+package main
 
 import (
 	pb "github.com/clarkkkent/helper/user-service/app/proto/user"

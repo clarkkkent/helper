@@ -1,4 +1,4 @@
-package app
+package main
 
 import (
 	"context"
@@ -19,14 +19,14 @@ func (serv *Service) Create(ctx context.Context, req *pb.User) (*pb.Response, er
 		return nil, err
 	}
 	req.Password = string(hashedPass)
-	if err := Create(req); err != nil {
+	if err := serv.repo.Create(req); err != nil {
 		return nil, err
 	}
 	return &pb.Response{User: req, Users:nil, Errors:nil}, nil
 }
 
 func (serv *Service) Get(ctx context.Context, req *pb.User) (*pb.Response, error) {
-	user, err := Get(req.Id)
+	user, err := serv.repo.Get(req.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,7 @@ func (serv *Service) Get(ctx context.Context, req *pb.User) (*pb.Response, error
 
 func (serv *Service) Auth(ctx context.Context, req *pb.User) (*pb.Token, error) {
 	log.Println("Logged with:", req.Email, req.Password)
-	user, err := GetByEmail(req.Email)
+	user, err := serv.repo.GetByEmail(req.Email)
 	log.Println(user)
 	if err != nil {
 		return nil, err
@@ -45,7 +45,7 @@ func (serv *Service) Auth(ctx context.Context, req *pb.User) (*pb.Token, error) 
 		return nil, err
 	}
 
-	token, err := Encode(user)
+	token, err := serv.tokenService.Encode(user)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (serv *Service) Auth(ctx context.Context, req *pb.User) (*pb.Token, error) 
 }
 
 func (serv *Service) ValidateToken(ctx context.Context, req *pb.Token) (*pb.Token, error) {
-	claims, err := Decode(req.Token)
+	claims, err := serv.tokenService.Decode(req.Token)
 	if err != nil {
 		return nil, err
 	}
