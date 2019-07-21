@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 )
 
 const (
@@ -15,6 +15,6 @@ func main() {
 	passwordPtr := flag.String("password", "", "password for user")
 	flag.Parse()
 
-	fmt.Println(*namePtr, *emailPtr, *passwordPtr)
-
+	log.Println(*namePtr, *emailPtr, *passwordPtr)
 }
+
