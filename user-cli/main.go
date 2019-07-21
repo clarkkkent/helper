@@ -22,7 +22,7 @@ func main() {
 
 	client := pb.NewUserServiceClient(conn)
 	namePtr := flag.String("username", "", "name for user")
-	emailPtr := flag.String("login", "", "login for user")
+	emailPtr := flag.String("email", "", "login for user")
 	passwordPtr := flag.String("password", "", "password for user")
 	flag.Parse()
 
@@ -32,11 +32,10 @@ func main() {
 	user.Email = *emailPtr
 	user.Password = *passwordPtr
 
-	r, err = client.Create(context.Background(), user)
+	_, err = client.Create(context.Background(), user)
 	log.Println("app work")
 	if err != nil {
 		log.Fatalf("Could not greet: %v", err)
 	}
-	log.Println(r)
 
 }

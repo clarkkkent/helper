@@ -18,3 +18,4 @@ WORKDIR /app
 
 COPY --from=builder /go/src/github.com/clarkkkent/helper/user-cli .
 
+CMD ["./user-cli", "--username=Sergei --email=sergeleushin@gmail.com", "--password=Bethere4u!"]

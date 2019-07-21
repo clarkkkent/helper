@@ -22,7 +22,7 @@ func (serv *Service) Create(ctx context.Context, req *pb.User) (*pb.Response, er
 	if err := serv.repo.Create(req); err != nil {
 		return nil, err
 	}
-	return &pb.Response{User: req}, nil
+	return &pb.Response{User: req, Users:nil, Errors:nil}, nil
 }
 
 func (serv *Service) Get(ctx context.Context, req *pb.User) (*pb.Response, error) {
