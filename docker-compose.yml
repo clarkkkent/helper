@@ -1,9 +1,5 @@
 version: '3.2'
 services:
-  user-cli:
-    build: ./user-cli
-    depends_on:
-      - user-service
 
   user-service:
     build: ./user-service

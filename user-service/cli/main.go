@@ -1,10 +1,10 @@
-package main
+package cli
 
 import (
 	"context"
 	"flag"
 	"fmt"
-	pb "github.com/clarkkkent/helper/user-service/proto/user"
+	pb "github.com/clarkkkent/helper/user-service/app/proto/user"
 	"google.golang.org/grpc"
 	"log"
 )
@@ -22,7 +22,7 @@ func main() {
 
 	client := pb.NewUserServiceClient(conn)
 	namePtr := flag.String("username", "", "name for user")
-	emailPtr := flag.String("email", "", "login for user")
+	emailPtr := flag.String("email", "", "email for user")
 	passwordPtr := flag.String("password", "", "password for user")
 	flag.Parse()
 

@@ -1,7 +1,7 @@
-package main
+package app
 
 import (
-	pb "github.com/clarkkkent/helper/user-service/proto/user"
+	pb "github.com/clarkkkent/helper/user-service/app/proto/user"
 	"github.com/dgrijalva/jwt-go"
 )
 

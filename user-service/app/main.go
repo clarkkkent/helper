@@ -1,7 +1,7 @@
-package main
+package app
 
 import (
-	pb "github.com/clarkkkent/helper/user-service/proto/user"
+	pb "github.com/clarkkkent/helper/user-service/app/proto/user"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -19,7 +19,7 @@ func main() {
 
 	db.AutoMigrate(&pb.User{})
 	repo := &UserRepository{db}
-	tokenservice := &TokenService{repo:repo}
+	tokenservice := &TokenService{repo: repo}
 
 
 	lis, err := net.Listen("tcp", port)

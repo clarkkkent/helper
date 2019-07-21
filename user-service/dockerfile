@@ -6,7 +6,8 @@ COPY . .
 
 RUN go get -u github.com/golang/dep/cmd/dep
 RUN dep init && dep ensure
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo ./app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo ./cli
 
 FROM alpine:latest
 
@@ -18,4 +19,4 @@ WORKDIR /app
 
 COPY --from=builder /go/src/github.com/clarkkkent/helper/user-service .
 
-CMD ["./user-service"]
+CMD ["./app"]
