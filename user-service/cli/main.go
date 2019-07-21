@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"flag"
+	pb "github.com/clarkkkent/helper/user-service/app/proto/user"
 	"google.golang.org/grpc"
 	"log"
-	pb "github.com/clarkkkent/helper/user-service/app/proto/user"
 )
 
 const (
@@ -27,12 +27,11 @@ func main() {
 
 	log.Println(*namePtr, *emailPtr, *passwordPtr)
 
-	var user *pb.User
-	user.Name = *namePtr
-	user.Email = *emailPtr
-	user.Password = *passwordPtr
-
-	_, err = client.Create(context.Background(), user)
+	_, err = client.Create(context.Background(), &pb.User{
+		Name: *namePtr,
+		Email: *emailPtr,
+		Password: *passwordPtr,
+	})
 
 	if err != nil {
 		log.Fatalf("Could not greet: %v", err)
